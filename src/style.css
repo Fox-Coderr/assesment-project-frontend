@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  height: 100vh; /* Adjust the height as needed */
+}
+
+.column {
+  flex: 1; /* Equal width for both columns by default */
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.column.with-border {
+  border-right: 1px solid #ccc; /* Add a vertical border on the right side of the left column */
+}
+
+/* Remove the border on the last column (right column) */
+.column:last-child {
+  border-right: none;
+}
+
+.column:first-child {
+  flex: 0 0 10%; /* Fixed width for the first column (30%) */
+}
+
+.line {
+  width: 2px; /* Adjust the width of the line */
+  background-color: #ccc;
+  height: 100%; /* Line stretches to the height of the container */
+}
