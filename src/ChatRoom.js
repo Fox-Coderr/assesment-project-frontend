@@ -10,8 +10,8 @@ function  ChatRoom() {
   const [newNickname, setNewNickname] = useState('');
   const ws = useRef(null);
 
-  const serverUrl='http://177.136.123.160:3002/'
-  const wsServerUrl='ws://177.136.123.160:3002/'
+  const serverUrl= process.env.REACT_APP_BASE_URL
+  const wsServerUrl= process.env.REACT_APP_WS_URL
 
   function getRooms(){
       axios.get(serverUrl+'rooms/')
