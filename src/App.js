@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css';
-import ChatRoom from './ChatRoom';
+import './style.css';
+import {AppProvider} from "./context/app";
+import {SideBar} from "./components/sideBar";
+import {ChatRoom} from "./components/chatRoom";
+
 
 function App() {
   return (
-    <div className="App">
-      <main>
+    <AppProvider>
+      <div className="container">
+        <SideBar />
+      <div className="line"></div>
         <ChatRoom />
-      </main>
-    </div>
+      </div>
+    </AppProvider>
   );
 }
 
