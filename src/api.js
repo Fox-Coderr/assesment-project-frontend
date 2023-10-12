@@ -14,7 +14,7 @@ export async function getRooms(){
 
 export async function getMessages(room){
   try {
-    const response = await axios.get(serverUrl + 'messages/get_messages/' + room + '/')
+    const response = await axios.get(serverUrl + 'messages/' + room + '/')
     return response.data;
   }catch(error) {
     console.error('Error fetching data:', error);
@@ -24,7 +24,7 @@ export async function getMessages(room){
 
 export async function createRoom(roomName){
   try {
-    const response = await axios.post(serverUrl + 'rooms/create_room/', {
+    const response = await axios.post(serverUrl + 'rooms/', {
               name: roomName
           })
     return response.data;

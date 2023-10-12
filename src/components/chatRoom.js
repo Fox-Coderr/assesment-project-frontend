@@ -13,7 +13,7 @@ export function ChatRoom () {
       nickname: newNickname,
       room: room
     };
-    ws.current.send(JSON.stringify(messageData));
+    ws.send(JSON.stringify(messageData));
     setNewMessage('');
     setMessages(await api.getMessages(room))
   };
