@@ -12,8 +12,8 @@ export function AppProvider({children}) {
   const [room, setRoom] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [newNickname, setNewNickname] = useState('');
-  const [socketUrl, setSocketUrl] = useState(wsServerUrl);
-  const {sendMessage} = useWebSocket(socketUrl);
+  const [socketUrl, setSocketUrl] = useState('');
+  const {sendMessage, lastMessage} = useWebSocket(socketUrl);
 
   useEffect(() => {
     async function loadRooms () {
@@ -44,7 +44,8 @@ export function AppProvider({children}) {
     newNickname,
     setNewNickname,
     sendMessage,
-    setWsUrl
+    setWsUrl,
+    lastMessage
   }
 
   return (
