@@ -3,7 +3,7 @@ import {useAppCTX} from "../context/app";
 import * as api from "../api";
 
 export function ChatRoom () {
-  const {messages,room, newMessage, setNewMessage, ws, newNickname, setMessages, createWs} = useAppCTX()
+  const {messages,room, newMessage, setNewMessage, newNickname, setMessages, setWsUrl,sendMessage} = useAppCTX()
 
   const handleSendMessage = async () => {
     if (newMessage.trim() === '') return;
@@ -13,7 +13,7 @@ export function ChatRoom () {
       nickname: newNickname,
       room: room
     };
-    ws.send(JSON.stringify(messageData));
+    sendMessage(JSON.stringify(messageData));
     setNewMessage('');
     setMessages(await api.getMessages(room))
   };
@@ -21,7 +21,7 @@ export function ChatRoom () {
   useEffect(() => {
     async function loadMessages (){
       setMessages(await api.getMessages(room));
-      createWs(room);
+      setWsUrl(room);
     }
     if(room !== ''){
       loadMessages()

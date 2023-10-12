@@ -1,8 +1,10 @@
-import {useRef, useState, createContext, useContext, useEffect} from "react";
+import {useState, createContext, useContext, useEffect} from "react";
 import * as api from "../api";
+import useWebSocket from 'react-use-websocket';
 
 const Context = createContext({})
 const wsServerUrl= process.env.REACT_APP_WS_URL
+
 
 export function AppProvider({children}) {
   const [messages, setMessages] = useState([]);
@@ -10,7 +12,8 @@ export function AppProvider({children}) {
   const [room, setRoom] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [newNickname, setNewNickname] = useState('');
-  const ws = useRef(null);
+  const [socketUrl, setSocketUrl] = useState(wsServerUrl);
+  const {sendMessage} = useWebSocket(socketUrl);
 
   useEffect(() => {
     async function loadRooms () {
@@ -22,28 +25,11 @@ export function AppProvider({children}) {
     loadRooms()
     return () => {
       clearInterval(id)
-      ws.current.close();
     };
   }, []);
 
-  function createWs(newRoom){
-    // Replace 'your_websocket_url' with your WebSocket server URL.
-    ws.current = new WebSocket(wsServerUrl+"ws/"+newRoom);
-
-    ws.current.onopen = () => {
-      // console.log('Connected to WebSocket');
-    };
-
-    ws.current.onmessage = (event) => {
-      const messageData = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, messageData]);
-    };
-
-    ws.current.onclose = () => {
-      // console.log('WebSocket connection closed');
-    };
-
-    return ws.current
+  function setWsUrl(newRoom){
+    setSocketUrl(wsServerUrl+"ws/"+newRoom);
   }
 
   const context ={
@@ -57,10 +43,8 @@ export function AppProvider({children}) {
     setNewMessage,
     newNickname,
     setNewNickname,
-    createWs,
-    get ws() {
-      return ws.current
-    }
+    sendMessage,
+    setWsUrl
   }
 
   return (

@@ -3,7 +3,7 @@ import {useAppCTX} from "../context/app";
 import * as api from "../api";
 
 export function SideBar () {
-  const {newNickname,setNewNickname, rooms, setRoom, ws, setRooms} = useAppCTX()
+  const {newNickname,setNewNickname, rooms, setRoom, setRooms} = useAppCTX()
 
   async function createRoom(roomName){
     try {
@@ -29,7 +29,6 @@ export function SideBar () {
       alert('Please type a nickname')
     }else{
       setRoom(newRoom)
-      ws?.close();
     }
   }
 
