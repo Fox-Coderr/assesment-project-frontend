@@ -12,7 +12,7 @@ export function AppProvider({children}) {
   const [room, setRoom] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [newNickname, setNewNickname] = useState('');
-  const [socketUrl, setSocketUrl] = useState('');
+  const [socketUrl, setSocketUrl] = useState(wsServerUrl);
   const {sendMessage, lastMessage} = useWebSocket(socketUrl);
 
   useEffect(() => {
